@@ -1,7 +1,16 @@
 classDiagram
-  Title -- Genre
-  Title *-- Season
-  Title *-- Review
-  Title o-- Actor
+  Title -- Genre: is associated with
+  Title *-- Season: has
+  Title *-- Review: has
+  Title o-- Actor: features
 
-Season *-- Episode
+  TV Show --|> Title: implements
+  Short --|> Title: implements
+  Film --|> Title: implements
+
+  Viewer --> Title: watches
+
+  Season *-- Review: has
+  Season *-- Episode: contains
+
+  Episode *-- Review: has
