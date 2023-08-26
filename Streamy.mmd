@@ -1,16 +1,24 @@
+---
+title: Streamy Domain Model
+---
 classDiagram
-  Title -- Genre: is associated with
-  Title *-- Season: has
-  Title *-- Review: has
-  Title o-- Actor: features
+  Title "1..*" -- "1..*" Genre: is associated with
+
+  Title "1" *-- "0..*" Season: has
+  Title "1" *-- "0..*" Review: has
+  Title "0..*" o-- "1..*" Actor: features
 
   TV Show --|> Title: implements
   Short --|> Title: implements
   Film --|> Title: implements
 
-  Viewer --> Title: watches
+  Viewer "0..*" --> "0..*" Title: watches
 
-  Season *-- Review: has
-  Season *-- Episode: contains
+  Season "1" *-- "0..*" Review: has
+  Season "1" *-- "1..*" Episode: has
 
-  Episode *-- Review: has
+  Episode "1" *-- "0..*" Review: has
+
+  Title: \n\n
+
+link Title "http://www.google.com" _blank
