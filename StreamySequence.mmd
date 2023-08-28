@@ -21,9 +21,11 @@ sequenceDiagram
   else valid input
     Sign Up Service->>+User Service: POST /users
     User Service--)Kafka: User Created Event Published
-    Note left of Kafka: other services take action based on this event 
+    %%Note left of Kafka: other services take action based on this event 
     Note over User Service, Kafka: other services take action based on this event
     User Service-->>-Sign Up Service: 201 Created (User)
     Sign Up Service-->>-Browser: 301 Redirect (Login page)
   end
-    
+   
+
+  link User Service: {"Repository" : "https://www.example.com/repository"} 
