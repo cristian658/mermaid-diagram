@@ -1,9 +1,25 @@
 classDiagram
   class UserController {
-    -CreateUserService _createUserService
-    +UserController(CreateUserService createUserService)
+    <<Class>>
+    -ICreateUserService _createUserService
+    +UserController(ICreateUserService createUserService)
     +Create(string email, string username) User
 
+  }
+
+  class ICreateUserService {
+    <<Interface>>
+    +Call(CreateUserRequest createUserRequest) User
+  }
+
+  class CreateUserService {
+    <<Class>>
+    -UserModel _userModel
+    -SendWelcomeEmailService _sendWelcomeEmailService
+    -Kafka _kafka
+    +CreateUserService(UserModel um, SendWelcomeEmailService es, Kafka k)
+    +Call(CreateUserRequest createUserRequest) User
+    -CheckActiveUsers(List~User~ users) bool
   }
 
   class CreateUserRequest {
@@ -13,14 +29,7 @@ classDiagram
     +Validate() bool
   }  
 
-  class CreateUserService {
-    -UserModel _userModel
-    -SendWelcomeEmailService _sendWelcomeEmailService
-    -Kafka _kafka
-    +CreateUserService(UserModel um, SendWelcomeEmailService es, Kafka k)
-    +Call(CreateUserRequest createUserRequest) User
-    -CheckActiveUsers(List~User~ users) bool
-  }
+
 
   class UserModel {
     +FindUsersByEmail(string email) List~User~
@@ -41,8 +50,11 @@ classDiagram
     +PublishUserCreatedEvent(User user) bool
   }
 
+
+
   UserController ..> CreateUserRequest: depends on
-  UserController ..> CreateUserService: depends on
+  UserController ..> ICreateUserService: depends on
+  CreateUserService ..|> ICreateUserService: implements
   CreateUserService ..> UserModel: depends on
   UserModel ..> User: depends on
   CreateUserService ..> SendWelcomeEmailService: depends on
