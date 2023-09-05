@@ -31,14 +31,14 @@ jobs:
             npx -p @mermaid-js/mermaid-cli mmdc --input $file --output $file
           done
       - name: Setup Pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v3
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./docs
           destination: ./_site
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
   # Deployment job
   deploy:
     environment:
@@ -51,5 +51,5 @@ jobs:
         run: echo
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v2
       
