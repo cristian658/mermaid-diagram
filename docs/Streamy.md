@@ -3,6 +3,7 @@ title: example Mermaid
 ---
 Prueba de diagrama Mermaid
 
+
 ```mermaid
 classDiagram
   Title "1..*" -- "1..*" Genre: is associated with
